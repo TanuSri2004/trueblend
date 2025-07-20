@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrueBlend – Ingredient Safety</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div class="logo"><img src="assets/logo.jpg" alt="TrueBlend Logo"/></div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="scan.html">Scan</a>
+      <a href="#features">Features</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#about">About</a>
+      <a href="#help">Help</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <h1>Instant Ingredient Safety Check</h1>
+      <p>Scan, analyze, and understand your skincare and food ingredients.</p>
+      <button onclick="window.location.href='scan.html'">Start Scanning</button>
+    </section>
+    <section class="categories">
+      <div class="category-card skincare">
+        <img src="assets/skincare-icon.svg" alt="Skincare Icon"/>
+        <h2>Skincare</h2>
+        <p>Check cosmetic ingredient safety</p>
+      </div>
+      <div class="category-card food">
+        <img src="assets/food-icon.svg" alt="Food Icon"/>
+        <h2>Food</h2>
+        <p>Analyze food ingredients</p>
+      </div>
+    </section>
+    <section>
+      <h2>Join the Waiting List</h2>
+      <p>Enter your name, email, and mobile number to get early access to TrueBlend!</p>
+      <form onsubmit="handleSubmit(event)">
+        <input type="text" id="name" placeholder="Your Name" required />
+        <input type="email" id="email" placeholder="Your Email" required />
+        <input type="tel" id="phone" placeholder="Your Phone Number" required />
+        <button type="submit">Join Now</button>
+      </form>
+    </section>
+    <section id="how-it-works">
+      <h2>How It Works</h2>
+      <ol>
+        <li>Select a product category</li>
+        <li>Upload or scan the ingredient label</li>
+        <li>Get instant results with safety tips</li>
+      </ol>
+    </section>
+    <section id="features">
+      <h2>Features</h2>
+      <ul>
+        <li>Real-time AI ingredient analysis</li>
+        <li>Personalized dietary warnings</li>
+        <li>Recent scan history</li>
+        <li>Accessibility-focused interface</li>
+        <li>Alternative safe ingredients</li>
+      </ul>
+    </section>
+  </main>
+  <footer>
+    <a href="#help">Need Help?</a>
+    <div>&copy; 2025 TrueBlend</div>
+  </footer>
+  <script src="scripts.js"></script>
+<script>
+  async function handleSubmit(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phone").value;
+
+    try {
+      const response = await fetch("http://localhost:3000/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, phone })
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert("✅ Successfully added to the waiting list!");
+        // Optional: clear form fields
+        document.getElementById("name").value = '';
+        document.getElementById("email").value = '';
+        document.getElementById("phone").value = '';
+      } else {
+        alert("❌ Error: " + result.error);
+      }
+
+    } catch (err) {
+      alert("❌ Failed to connect to the server.");
+    }
+  }
+</script>
+
+
+</body>
+</html>
