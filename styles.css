@@ -1,3 +1,7 @@
+* {
+  transition: all 0.3s ease-in-out;
+  box-sizing: border-box;
+}
 
 body {
   font-family: 'Segoe UI', Roboto, sans-serif;
@@ -6,6 +10,7 @@ body {
   background-color: #FAF4E8;
   color: #1F3B2C;
 }
+
 header {
   background-color: #ffffff;
   padding: 1rem 2rem;
@@ -14,25 +19,57 @@ header {
   align-items: center;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
-.logo img {
-  height: 200px; /* or 100px, adjust as needed */
-  width: auto;  /* maintain aspect ratio */
 
+.logo img {
+  height: 80px;
+  width: auto;
+  transition: transform 0.3s ease;
 }
+
+.logo img:hover {
+  transform: scale(1.1);
+}
+
 nav a {
   margin-left: 1rem;
   text-decoration: none;
   color: #1F3B2C;
+  font-weight: bold;
+  position: relative;
 }
+
+nav a::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #1F3B2C;
+  transition: 0.3s;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
 .hero {
   text-align: center;
   padding: 4rem 1rem;
   background: #E4F1E1;
+  animation: fadeIn 1s ease-in;
 }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .hero h1 {
   font-size: 2.5rem;
   color: #2c3e50;
 }
+
 .hero button {
   margin-top: 1rem;
   padding: 0.8rem 1.5rem;
@@ -42,7 +79,14 @@ nav a {
   color: white;
   border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
+.hero button:hover {
+  background-color: #2d4e3c;
+  transform: scale(1.05);
+}
+
 .categories {
   display: flex;
   justify-content: center;
@@ -50,6 +94,7 @@ nav a {
   padding: 2rem;
   flex-wrap: wrap;
 }
+
 .category-card {
   background: #fff;
   padding: 1.5rem;
@@ -57,22 +102,26 @@ nav a {
   box-shadow: 0 0 10px rgba(0,0,0,0.05);
   text-align: center;
   width: 200px;
+  transform: translateY(0);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.category-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+}
+
 .category-card img {
   width: 60px;
   margin-bottom: 1rem;
 }
+
 section {
   padding: 2rem;
   max-width: 800px;
   margin: auto;
 }
-footer {
-  text-align: center;
-  padding: 1rem;
-  background: #f8f8f8;
-  font-size: 0.9rem;
-}
+
 form input, form button {
   display: block;
   width: 100%;
@@ -81,8 +130,56 @@ form input, form button {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
 form button {
   background-color: #1F3B2C;
   color: white;
+  font-weight: bold;
   cursor: pointer;
+}
+
+form button:hover {
+  background-color: #2d4e3c;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #f8f8f8;
+  font-size: 0.9rem;
+}
+
+table#waitlist-table {
+  width: 100%;
+  border-collapse: collapse;
+  animation: fadeIn 1s ease-in-out;
+  margin-top: 1rem;
+}
+
+table#waitlist-table td, th {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+@media screen and (max-width: 768px) {
+  .categories {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .category-card {
+    width: 90%;
+    margin-bottom: 1rem;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  nav a {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
 }
